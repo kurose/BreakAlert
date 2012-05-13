@@ -41,9 +41,10 @@
             this.MinimizeBox = false;
             this.Name = "AlertForm";
             this.ShowInTaskbar = false;
-            this.Text = "ココに時刻表示";
+            this.Text = "ココにメッセージ";
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AlertForm_FormClosing);
             this.Load += new System.EventHandler(this.AlertForm_Load);
             this.ResumeLayout(false);
 

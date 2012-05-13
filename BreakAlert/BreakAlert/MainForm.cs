@@ -42,7 +42,6 @@ namespace BreakAlert
         /// <param name="e"></param>
         private void menuItemEnd_Click(object sender, EventArgs e)
         {
-            notifyIcon.Visible = false;
             this.Close();
             Application.Exit();
         }
@@ -54,6 +53,7 @@ namespace BreakAlert
         /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            notifyIcon.Visible = false;
             if (m_timer != null)
             {
                 m_timer.Stop();
@@ -78,12 +78,15 @@ namespace BreakAlert
         }
 
         /// <summary>
-        /// 次の正時までのミリ秒を計算
+        /// 次の正時までのミリ秒を計算(日付またぎで正しく動作しないと思われる)
         /// </summary>
         /// <returns></returns>
         private int calcInterval()
         {
-            return 3000;
+            DateTime now = DateTime.Now;
+            TimeSpan nowTime = new TimeSpan(now.Hour, now.Minute, now.Second);
+            TimeSpan nextTime = new TimeSpan(now.Hour + 1, 0, 0);
+            return (int)(nextTime.TotalMilliseconds - nowTime.TotalMilliseconds);
         }
     }
 }
