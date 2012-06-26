@@ -12,8 +12,8 @@ namespace BreakAlert
 {
     public partial class AlertForm : Form
     {
-        /// <summary>アラート表示時間(10分)</summary>
-        private static readonly int _alertShowingTime = 10 * 60 * 1000;
+        /// <summary>アラート表示時間(5分)</summary>
+        private static readonly int _alertShowingTime = 5 * 60 * 1000;
         /// <summary>背景画像フォルダ</summary>
         private static readonly string _folder = "./image";
         /// <summary>背景画像辞書</summary>
@@ -53,7 +53,7 @@ namespace BreakAlert
         /// <param name="e"></param>
         private void AlertForm_Load(object sender, EventArgs e)
         {
-            this.Text = DateTime.Now.ToString("休憩し～や～、今HH時やで！(10分たったら勝手に消えるで～)");
+            this.Text = DateTime.Now.ToString("休憩し～や～、今HH時mm分やで！(5分たったら勝手に消えるで～)");
             //画面終了用タイマーセット
             m_timer = new Timer();
             m_timer.Interval = _alertShowingTime;
