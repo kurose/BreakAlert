@@ -11,7 +11,7 @@ namespace BreakAlert
 {
     public partial class MainForm : Form
     {
-        /// <summary>正時を知らせるタイマー</summary>
+        /// <summary>30分区切りを知らせるタイマー</summary>
         private Timer m_timer = null;
 
         /// <summary>
@@ -78,14 +78,22 @@ namespace BreakAlert
         }
 
         /// <summary>
-        /// 次の正時までのミリ秒を計算(日付またぎで正しく動作しないと思われる)
+        /// 次の30分区切りまでのミリ秒を計算(日付またぎで正しく動作しないと思われる)
         /// </summary>
         /// <returns></returns>
         private int calcInterval()
         {
             DateTime now = DateTime.Now;
             TimeSpan nowTime = new TimeSpan(now.Hour, now.Minute, now.Second);
-            TimeSpan nextTime = new TimeSpan(now.Hour + 1, 0, 0);
+            TimeSpan nextTime = nowTime;
+            if (now.Minute < 30)
+            {
+                nextTime = new TimeSpan(now.Hour, 30, 0);
+            }
+            else
+            {
+                nextTime = new TimeSpan(now.Hour + 1, 0, 0);
+            }
             return (int)(nextTime.TotalMilliseconds - nowTime.TotalMilliseconds);
         }
     }
